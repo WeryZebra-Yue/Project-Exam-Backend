@@ -1,0 +1,116 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: examdatabase
+  description: My cool app
+basePath: /api/v1
+tags:
+  - name: Examples
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  ExampleBody:
+    type: object
+    title: example
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: no_stress
+
+paths:
+  /admin/auth:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: Returns all examples
+  /admin/addAdmin:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              edit:
+                type: boolean
+      responses:
+        200:
+          description: Returns all examples
+  /admin/addExaminer:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              user:
+                type: object
+
+      responses:
+        200:
+          description: Returns all examples
+  /admin/updateExaminer:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              user:
+                type: object
+
+      responses:
+        200:
+          description: Returns all examples
+  /admin/getAllExaminers:
+    get:
+      tags:
+        - User
+      summary: Get user data
+
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
