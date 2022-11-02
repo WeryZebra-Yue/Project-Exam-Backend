@@ -3,26 +3,24 @@ import mongoose from "mongoose";
 const User = new mongoose.Schema({
   e_id: {
     type: String,
-    required: true,
+  },
+  eid: {
+    type: String,
   },
   //   Name, Number, 2 x Email
   personalDetails: {
     type: Object,
-    required: true,
   },
-  // Institute details name, distance
+  // Institute details name, distance, role
   instituteDetails: {
     type: Object,
-    required: true,
   },
   // Documents bank passbook, rc_book, d_licence, Bank Details (IFSC, Account Number, Account Holder Name), passbook, rc_book, d_licence, Bank Details (IFSC, Account Number, Account Holder Name)
   documents: {
     type: Object,
-    required: true,
   },
   roles: {
     type: Object,
-    required: true,
   },
   createdAt: {
     type: Date,

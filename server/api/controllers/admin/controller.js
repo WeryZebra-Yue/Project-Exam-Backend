@@ -1,4 +1,5 @@
 import AdminService from "../../services/admin.service";
+import authenticationService from "../../services/authentication.service";
 
 export class Controller {
   async signIn(req, res) {
@@ -8,7 +9,7 @@ export class Controller {
     res.status(200).send(user);
   }
   async addExaminer(req, res) {
-    const user = await AdminService.addExaminer(req.body);
+    const user = await AdminService.addExaminer(req.body.user);
     res.status(200).send(user);
   }
   async getExaminers(req, res) {
@@ -23,8 +24,25 @@ export class Controller {
     res.status(200).send(user);
   }
   async getAllExaminers(req, res) {
-    const users = await AdminService.getAllExaminers();
-    res.status(200).send(users);
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+      const decoded = await authenticationService.verifyToken(token);
+      console.log(decoded);
+      if (decoded) {
+        const users = await AdminService.getAllExaminers();
+        res.status(200).send(users);
+      }
+    } catch (err) {
+      res.status(401).send("Unauthorized");
+    }
+  }
+  async addAdmin(req, res) {
+    const user = await AdminService.addAdmin(req.body);
+    res.status(200).send(user);
+  }
+  async updateExaminer(req, res) {
+    const user = await AdminService.updateExaminer(req.body.user);
+    res.status(200).send(user);
   }
 }
 export default new Controller();

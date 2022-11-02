@@ -5,15 +5,17 @@ class AuthenticationService {
    * Generate the JWT Token for the user
    * @param {String} id - ID of the user
    */
-  generateToken(id) {
+  generateToken(id, role) {
     const today = new Date();
     const exp = new Date(today);
-    exp.setDate(today.getDate() + 1000000); //Infinite Expiry!
+    // add 24 hours to current date date
+    exp.setDate(today.getDate() + 1);
+    console.log(exp);
 
     return jwt.sign(
       {
         id,
-        exp: exp.getTime() / 1000,
+        role,
       },
       process.env.JWT_SECRET
     );
@@ -29,6 +31,9 @@ class AuthenticationService {
   }
   decryptPassword(password, hash) {
     return bcrypt.compare(password, hash);
+  }
+  encryptPassword(password) {
+    return bcrypt.hash(password, 10);
   }
 
   // encrypt password

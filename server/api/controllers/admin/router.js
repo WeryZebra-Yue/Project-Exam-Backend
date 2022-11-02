@@ -3,8 +3,10 @@ import controller from "./controller";
 
 export default express
   .Router()
-  .post("/signIn", controller.signIn)
+  .post("/auth", controller.signIn)
   .post("/addExaminer", controller.addExaminer)
   .get("/getExaminers", controller.getExaminers)
   .get("/getExaminers/:id", controller.getExaminersUsingId)
-  .get("/getAllExaminers", controller.getAllExaminers);
+  .get("/getAllExaminers", controller.getAllExaminers)
+  .post("/addAdmin", controller.addAdmin)
+  .post("/updateExaminer", controller.updateExaminer);

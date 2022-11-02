@@ -9,6 +9,10 @@ const Admin = new mongoose.Schema({
     type: String,
     required: [true, "Password missing!"],
   },
+  edit: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("Admin", Admin);

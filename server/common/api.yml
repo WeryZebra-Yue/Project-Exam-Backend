@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: examdatabase
   description: My cool app
-basePath: /y
+basePath: /api/v1
 tags:
   - name: Examples
     description: Simple example endpoints
@@ -14,7 +14,6 @@ consumes:
   - application/json
 produces:
   - application/json
-
 
 definitions:
   ExampleBody:
@@ -28,44 +27,85 @@ definitions:
         example: no_stress
 
 paths:
-  /examples:
-    get:
-      tags:
-        - Examples
-      description: Fetch all examples
-      responses:
-        200:
-          description: Returns all examples
+  /admin/auth:
     post:
       tags:
         - Examples
-      description: Create a new example
       parameters:
-        - name: example
-          in: body
-          description: an example
-          required: true
-          schema: 
-            $ref: "#/definitions/ExampleBody"
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
       responses:
         200:
           description: Returns all examples
-
-  /examples/{id}:
-    get:
+  /admin/addAdmin:
+    post:
       tags:
         - Examples
       parameters:
-        - name: id
-          in: path
-          required: true
-          description: The id of the example to retrieve
-          type: integer
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              edit:
+                type: boolean
       responses:
         200:
-          description: Return the example with the specified id
+          description: Returns all examples
+  /admin/addExaminer:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              user:
+                type: object
+
+      responses:
+        200:
+          description: Returns all examples
+  /admin/updateExaminer:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              user:
+                type: object
+
+      responses:
+        200:
+          description: Returns all examples
+  /admin/getAllExaminers:
+    get:
+      tags:
+        - User
+      summary: Get user data
+
+      responses:
+        200:
+          description: Return the user data
         404:
-          description: Example not found
+          description: User not found / Unauthorized
 
   /spec:
     get:
