@@ -44,5 +44,27 @@ export class Controller {
     const user = await AdminService.updateExaminer(req.body.user);
     res.status(200).send(user);
   }
+  async updateAdmin(req, res) {
+    const user = await AdminService.updateAdmin(req.body);
+    res.status(200).send(user);
+  }
+  async getAdmins(req, res) {
+    const admins = await AdminService.getAdmins();
+    res.status(200).send(admins);
+  }
+  async getPassword(req, res) {
+    const { email } = req.body;
+    const password = await AdminService.getPassword(email);
+    res.status(200).send(password);
+  }
+  async verifyToken(req, res) {
+    const { token } = req.body;
+    const decoded = await authenticationService.verifyToken(token);
+    if (decoded) {
+      res.status(200).send(decoded);
+    } else {
+      res.status(401).send("Unauthorized");
+    }
+  }
 }
 export default new Controller();

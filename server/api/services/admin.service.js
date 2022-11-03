@@ -10,21 +10,28 @@ class AdminService {
         message: "Admin not found",
       };
     }
-    const isPasswordMatch = await AuthenticationService.decryptPassword(
-      password,
-      user.password
-    );
+    const isPasswordMatch = password === user.password;
+
     if (!isPasswordMatch) {
       return {
         status: 400,
         message: "Incorrect password",
       };
     }
-    return {
-      status: 200,
-      message: "Login successful",
-      token: AuthenticationService.generateToken(user._id, user.role),
-    };
+    console.log(user);
+    if (user.email === "admin@ppsu.db" || user.email === "developer@ppsu.db") {
+      return {
+        status: 200,
+        message: "Login successful",
+        token: AuthenticationService.generateToken(user.id, user.role, true),
+      };
+    } else {
+      return {
+        status: 200,
+        message: "Login successful",
+        token: AuthenticationService.generateToken(user.id, user.role, false),
+      };
+    }
   }
   async addExaminer(user) {
     if (user.e_id === "SOE") {
@@ -97,14 +104,65 @@ class AdminService {
 
   // Super Admin
   async addAdmin(user) {
-    const password = await AuthenticationService.encryptPassword(user.password);
-    console.log(password);
-    return Admin.create({
+    const email = user.email;
+    const user_Exist = await Admin.findOne({ email });
+    if (user_Exist) {
+      return {
+        status: 400,
+        message: "Admin already exists",
+      };
+    }
+    const admin = await Admin.create({
       email: user.email,
-      password: password,
+      password: user.password,
+      role: user.role,
+      passwordLength: user.password.length,
+    });
+
+    return {
+      status: 200,
+      message: "Admin added successfully",
+    };
+  }
+  async updateAdmin(user) {
+    const email = user.email;
+    console.log(user);
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return {
+        status: 400,
+        message: "Admin not found",
+      };
+    }
+
+    const updatedAdmin = await Admin.findByIdAndUpdate(admin._id, {
+      password: user.password,
+      passwordLength: user.password.length,
       role: user.role,
     });
+    return updatedAdmin;
   }
+  async getAdmins() {
+    const admins = await Admin.find();
+
+    admins.forEach((admin, index) => {
+      if (admin.email === "developer@ppsu.db") {
+        admins.splice(index, 1);
+      }
+    });
+    return admins;
+  }
+  async getPassword(email) {
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return {
+        status: 400,
+        message: "Admin not found",
+      };
+    }
+    return admin.password;
+  }
+
   async updateExaminer(user) {
     return Examiner.findByIdAndUpdate(user.id, user);
   }

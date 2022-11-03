@@ -5,17 +5,19 @@ class AuthenticationService {
    * Generate the JWT Token for the user
    * @param {String} id - ID of the user
    */
-  generateToken(id, role) {
+  generateToken(id, role, admin) {
     const today = new Date();
     const exp = new Date(today);
     // add 24 hours to current date date
     exp.setDate(today.getDate() + 1);
+    console.log(id, role, admin);
     console.log(exp);
 
     return jwt.sign(
       {
-        id,
-        role,
+        id: id,
+        role: role,
+        admin: admin,
       },
       process.env.JWT_SECRET
     );
@@ -25,6 +27,7 @@ class AuthenticationService {
     return new Promise((resolve, reject) => {
       jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
         if (err) return reject(err);
+        console.log(payload);
         resolve(payload);
       });
     });
@@ -32,6 +35,7 @@ class AuthenticationService {
   decryptPassword(password, hash) {
     return bcrypt.compare(password, hash);
   }
+
   encryptPassword(password) {
     return bcrypt.hash(password, 10);
   }

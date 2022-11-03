@@ -9,9 +9,13 @@ const Admin = new mongoose.Schema({
     type: String,
     required: [true, "Password missing!"],
   },
-  edit: {
-    type: Boolean,
+  role: {
+    type: String,
     default: false,
+  },
+  passwordLength: {
+    type: Number,
+    default: 0,
   },
 });
 

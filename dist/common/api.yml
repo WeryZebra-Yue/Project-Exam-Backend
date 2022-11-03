@@ -58,8 +58,23 @@ paths:
                 type: string
               password:
                 type: string
-              edit:
-                type: boolean
+              role:
+                type: string
+      responses:
+        200:
+          description: Returns all examples
+  /admin/getPassword:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
       responses:
         200:
           description: Returns all examples
@@ -79,6 +94,32 @@ paths:
       responses:
         200:
           description: Returns all examples
+  /admin/getAdmins:
+    get:
+      tags:
+        - Examples
+      responses:
+        200:
+          description: Returns all examples
+  /admin/updateAdmin:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+              role:
+                type: string
+      responses:
+        200:
+          description: Returns all examples
   /admin/updateExaminer:
     post:
       tags:
@@ -91,6 +132,22 @@ paths:
             properties:
               user:
                 type: object
+
+      responses:
+        200:
+          description: Returns all examples
+  /admin/verifyToken:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
 
       responses:
         200:

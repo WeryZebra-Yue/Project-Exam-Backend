@@ -9,4 +9,8 @@ export default express
   .get("/getExaminers/:id", controller.getExaminersUsingId)
   .get("/getAllExaminers", controller.getAllExaminers)
   .post("/addAdmin", controller.addAdmin)
-  .post("/updateExaminer", controller.updateExaminer);
+  .post("/updateExaminer", controller.updateExaminer)
+  .post("/updateAdmin", controller.updateAdmin)
+  .get("/getAdmins", controller.getAdmins)
+  .post("/getPassword", controller.getPassword)
+  .post("/verifyToken", controller.verifyToken);
