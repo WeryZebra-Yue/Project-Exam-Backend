@@ -42,6 +42,7 @@ export class Controller {
   }
   async updateExaminer(req, res) {
     const user = await AdminService.updateExaminer(req.body.user);
+    console.log(user);
     res.status(200).send(user);
   }
   async updateAdmin(req, res) {

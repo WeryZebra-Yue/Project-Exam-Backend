@@ -165,7 +165,8 @@ class AdminService {
   }
 
   async updateExaminer(user) {
-    return Examiner.findByIdAndUpdate(user._id, user);
+    console.log(user);
+    return Examiner.findByIdAndUpdate(user.id, user);
   }
   async addMultipleUsers(users) {
     const response = [];
