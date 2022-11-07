@@ -13,4 +13,8 @@ export default express
   .post("/updateAdmin", controller.updateAdmin)
   .get("/getAdmins", controller.getAdmins)
   .post("/getPassword", controller.getPassword)
-  .post("/verifyToken", controller.verifyToken);
+  .post("/verifyToken", controller.verifyToken)
+  .post("/addMultipleUsers", controller.addMultipleUsers)
+  .get("/getUniversities", controller.getUniversities)
+  .post("/addUniversity", controller.addUniversity)
+  .post("/updateUniversity", controller.updateUniversity);

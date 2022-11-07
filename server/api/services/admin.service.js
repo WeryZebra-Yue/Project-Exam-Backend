@@ -1,6 +1,7 @@
 import AuthenticationService from "./authentication.service";
 import Admin from "../../models/AdminModel";
 import Examiner from "../../models/ExaminerModel";
+import UniversityModel from "../../models/UniversityModel";
 class AdminService {
   async signIn(email, password) {
     const user = await Admin.findOne({ email });
@@ -164,7 +165,27 @@ class AdminService {
   }
 
   async updateExaminer(user) {
-    return Examiner.findByIdAndUpdate(user.id, user);
+    return Examiner.findByIdAndUpdate(user._id, user);
+  }
+  async addMultipleUsers(users) {
+    const response = [];
+    users.forEach(async (user) => {
+      const resposne = await this.addExaminer(user);
+      response.push(resposne);
+    });
+    return response;
+  }
+  async addUniversity(university) {
+    return UniversityModel.create(university);
+  }
+  async getUniversities() {
+    return UniversityModel.find();
+  }
+  async updateUniversity(university) {
+    return UniversityModel.findByIdAndUpdate(university._id, university);
+  }
+  async getDistance(name) {
+    return UniversityModel.findOne({ name });
   }
 }
 

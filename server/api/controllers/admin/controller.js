@@ -66,5 +66,27 @@ export class Controller {
       res.status(401).send("Unauthorized");
     }
   }
+
+  async addMultipleUsers(req, res) {
+    const users = await AdminService.addMultipleUsers(req.body.users);
+    res.status(200).send(users);
+  }
+  // async getUniversity(req, res) {
+  //   const { name } = req.body;
+  //   const university = await AdminService.getUniversity(name);
+  //   res.status(200).send(university);
+  // }
+  async addUniversity(req, res) {
+    const university = await AdminService.addUniversity(req.body);
+    res.status(200).send(university);
+  }
+  async getUniversities(req, res) {
+    const universities = await AdminService.getUniversities();
+    res.status(200).send(universities);
+  }
+  async updateUniversity(req, res) {
+    const university = await AdminService.updateUniversity(req.body);
+    res.status(200).send(university);
+  }
 }
 export default new Controller();

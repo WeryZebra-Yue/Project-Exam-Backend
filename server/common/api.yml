@@ -152,6 +152,78 @@ paths:
       responses:
         200:
           description: Returns all examples
+  /admin/addMultipleUsers:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  type: object
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+  /admin/addUniversity:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              university:
+                type: array
+                items:
+                  type: object
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+  /admin/updateUniversity:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              university:
+                type: array
+                items:
+                  type: object
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+
+  /admin/getUniversities:
+    get:
+      tags:
+        - User
+      summary: Get user data
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+
   /admin/getAllExaminers:
     get:
       tags:
