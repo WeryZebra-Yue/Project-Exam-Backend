@@ -20,7 +20,7 @@ class AdminService {
       };
     }
     console.log(user);
-    if (user.email === "admin@ppsu.db" || user.email === "developer@ppsu.db") {
+    if (user.email === "coe@ppsu.ac.in" || user.email === "developer@ppsu.db") {
       return {
         status: 200,
         message: "Login successful",
