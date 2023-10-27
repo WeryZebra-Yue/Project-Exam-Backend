@@ -15,6 +15,9 @@ const User = new mongoose.Schema({
   instituteDetails: {
     type: Object,
   },
+  bankDetails: {
+    type: Object,
+  },
   // Documents bank passbook, rc_book, d_licence, Bank Details (IFSC, Account Number, Account Holder Name), passbook, rc_book, d_licence, Bank Details (IFSC, Account Number, Account Holder Name)
   documents: {
     type: Object,
