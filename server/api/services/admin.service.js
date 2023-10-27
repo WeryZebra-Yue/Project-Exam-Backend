@@ -2,6 +2,8 @@ import AuthenticationService from "./authentication.service";
 import Admin from "../../models/AdminModel";
 import Examiner from "../../models/ExaminerModel";
 import UniversityModel from "../../models/UniversityModel";
+import MetaDeta from "../../models/MetaDeta";
+import e from "express";
 class AdminService {
   async signIn(email, password) {
     const user = await Admin.findOne({ email });
@@ -32,6 +34,20 @@ class AdminService {
         message: "Login successful",
         token: AuthenticationService.generateToken(user.id, user.role, false),
       };
+    }
+  }
+  async updateMetaData() {
+    const metaData = await MetaDeta.findOne({ unique: "metaData" });
+    if (!metaData) {
+      return MetaDeta.create({
+        unique: "metaData",
+        lastUpdated: new Date(),
+      });
+    } else {
+      // update
+      return MetaDeta.findByIdAndUpdate(metaData._id, {
+        lastUpdated: new Date(),
+      });
     }
   }
   async addExaminer(user) {
@@ -81,6 +97,9 @@ class AdminService {
     }
 
     return Examiner.create(user);
+  }
+  async deleteExaminer(id) {
+    return Examiner.findByIdAndDelete(id);
   }
   async getExaminers(limit) {
     return Examiner.find().limit(limit);
@@ -187,6 +206,9 @@ class AdminService {
   }
   async getDistance(name) {
     return UniversityModel.findOne({ name });
+  }
+  async getMetaData() {
+    return MetaDeta.findOne({ unique: "metaData" });
   }
 }
 

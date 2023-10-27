@@ -9,6 +9,7 @@ export default express
   .get("/getExaminers/:id", controller.getExaminersUsingId)
   .get("/getAllExaminers", controller.getAllExaminers)
   .post("/addAdmin", controller.addAdmin)
+  .post("/deleteExaminer", controller.deleteExaminer)
   .post("/updateExaminer", controller.updateExaminer)
   .post("/updateAdmin", controller.updateAdmin)
   .get("/getAdmins", controller.getAdmins)
@@ -17,4 +18,5 @@ export default express
   .post("/addMultipleUsers", controller.addMultipleUsers)
   .get("/getUniversities", controller.getUniversities)
   .post("/addUniversity", controller.addUniversity)
-  .post("/updateUniversity", controller.updateUniversity);
+  .post("/updateUniversity", controller.updateUniversity)
+  .get("/getMetaData", controller.getMetaData);

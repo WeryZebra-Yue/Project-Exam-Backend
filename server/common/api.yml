@@ -94,6 +94,28 @@ paths:
       responses:
         200:
           description: Returns all examples
+  /admin/deleteExaminer:
+    post:
+      tags:
+        - Examples
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+      responses:
+        200:
+          description: Returns all examples
+  /admin/getMetaData:
+    get:
+      tags:
+        - Examples
+      responses:
+        200:
+          description: Returns all examples
   /admin/getAdmins:
     get:
       tags:

@@ -10,7 +10,13 @@ export class Controller {
   }
   async addExaminer(req, res) {
     const user = await AdminService.addExaminer(req.body.user);
+    await AdminService.updateMetaData();
     res.status(200).send(user);
+  }
+  async deleteExaminer(req, res) {
+    const id = await AdminService.deleteExaminer(req.body.id);
+    await AdminService.updateMetaData();
+    res.status(200).send(id);
   }
   async getExaminers(req, res) {
     const { limit } = req.query;
@@ -42,7 +48,7 @@ export class Controller {
   }
   async updateExaminer(req, res) {
     const user = await AdminService.updateExaminer(req.body.user);
-    console.log(user);
+    await AdminService.updateMetaData();
     res.status(200).send(user);
   }
   async updateAdmin(req, res) {
@@ -70,6 +76,7 @@ export class Controller {
 
   async addMultipleUsers(req, res) {
     const users = await AdminService.addMultipleUsers(req.body.users);
+    await AdminService.updateMetaData();
     res.status(200).send(users);
   }
   // async getUniversity(req, res) {
@@ -88,6 +95,10 @@ export class Controller {
   async updateUniversity(req, res) {
     const university = await AdminService.updateUniversity(req.body);
     res.status(200).send(university);
+  }
+  async getMetaData(req, res) {
+    const metaData = await AdminService.getMetaData();
+    res.status(200).send(metaData);
   }
 }
 export default new Controller();
