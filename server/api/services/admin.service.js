@@ -3,6 +3,7 @@ import Admin from "../../models/AdminModel";
 import Examiner from "../../models/ExaminerModel";
 import UniversityModel from "../../models/UniversityModel";
 import MetaDeta from "../../models/MetaDeta";
+import Assignment from "../../models/AssignModel";
 import e from "express";
 class AdminService {
   async signIn(email, password) {
@@ -209,6 +210,12 @@ class AdminService {
   }
   async getMetaData() {
     return MetaDeta.findOne({ unique: "metaData" });
+  }
+  async assign(data) {
+    return Assignment.create(data);
+  }
+  async getAssignments() {
+    return Assignment.find();
   }
 }
 

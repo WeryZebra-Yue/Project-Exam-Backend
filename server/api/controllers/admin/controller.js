@@ -47,6 +47,7 @@ export class Controller {
     res.status(200).send(user);
   }
   async updateExaminer(req, res) {
+    console.log(req.body);
     const user = await AdminService.updateExaminer(req.body.user);
     await AdminService.updateMetaData();
     res.status(200).send(user);
@@ -99,6 +100,15 @@ export class Controller {
   async getMetaData(req, res) {
     const metaData = await AdminService.getMetaData();
     res.status(200).send(metaData);
+  }
+  async assign(req, res) {
+    const body = req.body;
+    const result = await AdminService.assign(body);
+    res.status(200).send(result);
+  }
+  async getAssignments(req, res) {
+    const result = await AdminService.getAssignments();
+    res.status(200).send(result);
   }
 }
 export default new Controller();

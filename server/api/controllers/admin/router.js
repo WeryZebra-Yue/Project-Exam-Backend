@@ -19,4 +19,6 @@ export default express
   .get("/getUniversities", controller.getUniversities)
   .post("/addUniversity", controller.addUniversity)
   .post("/updateUniversity", controller.updateUniversity)
-  .get("/getMetaData", controller.getMetaData);
+  .get("/getMetaData", controller.getMetaData)
+  .post("/assign", controller.assign)
+  .get("/assignments", controller.getAssignments);

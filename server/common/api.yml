@@ -234,7 +234,6 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
-
   /admin/getUniversities:
     get:
       tags:
@@ -245,7 +244,6 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
-
   /admin/getAllExaminers:
     get:
       tags:
@@ -257,7 +255,42 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
-
+  /admin/assign:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              e_id:
+                type: string
+              formDetails:
+                type: object
+              travelDetails:
+                type: object
+              payDetails:
+                type: object
+              createdAt:
+                type: string
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+  /admin/assignments:
+    get:
+      tags:
+        - User
+      summary: Get user data
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
   /spec:
     get:
       tags:
