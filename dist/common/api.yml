@@ -281,6 +281,16 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
+  /admin/assignments:
+    get:
+      tags:
+        - User
+      summary: Get user data
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
   /spec:
     get:
       tags:
