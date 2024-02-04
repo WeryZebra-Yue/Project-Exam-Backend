@@ -52,8 +52,17 @@ class AdminService {
     }
   }
   async addExaminer(user) {
-    if (user.e_id === "SOE") {
-      let count = await Examiner.countDocuments({ e_id: "SOE" });
+    console.log(user);
+    if (user?.e_id === "SOE") {
+      // let count = await Examiner.countDocuments({ e_id: "SOE" });
+      // get the last examiner
+      let lastExaminer = await Examiner.findOne({ e_id: "SOE" }).sort({
+        _id: -1,
+      });
+      let count = 1;
+      if (lastExaminer) {
+        count = parseInt(lastExaminer.eid.split("SOE")[1]) + 1;
+      }
       count++;
       if (count < 10) {
         user["eid"] = `SOE000${count}`;
@@ -94,6 +103,16 @@ class AdminService {
         user["eid"] = `SLM00${count}`;
       } else if (count < 1000) {
         user["eid"] = `SLM0${count}`;
+      }
+    } else {
+      let count = await Examiner.countDocuments({ e_id: "SOE" });
+      count++;
+      if (count < 10) {
+        user["eid"] = `SOE000${count}`;
+      } else if (count < 100) {
+        user["eid"] = `SOE00${count}`;
+      } else if (count < 1000) {
+        user["eid"] = `SOE0${count}`;
       }
     }
 

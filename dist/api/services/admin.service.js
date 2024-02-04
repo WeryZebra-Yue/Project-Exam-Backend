@@ -1,34 +1,42 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.default = void 0;
 
-var _authentication = _interopRequireDefault(require("./authentication.service"));
+var _authentication = _interopRequireDefault(
+  require("./authentication.service")
+);
 
 var _AdminModel = _interopRequireDefault(require("../../models/AdminModel"));
 
-var _ExaminerModel = _interopRequireDefault(require("../../models/ExaminerModel"));
+var _ExaminerModel = _interopRequireDefault(
+  require("../../models/ExaminerModel")
+);
 
-var _UniversityModel = _interopRequireDefault(require("../../models/UniversityModel"));
+var _UniversityModel = _interopRequireDefault(
+  require("../../models/UniversityModel")
+);
 
 var _MetaDeta = _interopRequireDefault(require("../../models/MetaDeta"));
 
 var _express = _interopRequireDefault(require("express"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 class AdminService {
   async signIn(email, password) {
     const user = await _AdminModel.default.findOne({
-      email
+      email,
     });
 
     if (!user) {
       return {
         status: 400,
-        message: "Admin not found"
+        message: "Admin not found",
       };
     }
 
@@ -37,7 +45,7 @@ class AdminService {
     if (!isPasswordMatch) {
       return {
         status: 400,
-        message: "Incorrect password"
+        message: "Incorrect password",
       };
     }
 
@@ -47,31 +55,31 @@ class AdminService {
       return {
         status: 200,
         message: "Login successful",
-        token: _authentication.default.generateToken(user.id, user.role, true)
+        token: _authentication.default.generateToken(user.id, user.role, true),
       };
     } else {
       return {
         status: 200,
         message: "Login successful",
-        token: _authentication.default.generateToken(user.id, user.role, false)
+        token: _authentication.default.generateToken(user.id, user.role, false),
       };
     }
   }
 
   async updateMetaData() {
     const metaData = await _MetaDeta.default.findOne({
-      unique: "metaData"
+      unique: "metaData",
     });
 
     if (!metaData) {
       return _MetaDeta.default.create({
         unique: "metaData",
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
     } else {
       // update
       return _MetaDeta.default.findByIdAndUpdate(metaData._id, {
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
     }
   }
@@ -79,7 +87,7 @@ class AdminService {
   async addExaminer(user) {
     if (user.e_id === "SOE") {
       let count = await _ExaminerModel.default.countDocuments({
-        e_id: "SOE"
+        e_id: "SOE",
       });
       count++;
 
@@ -92,7 +100,7 @@ class AdminService {
       }
     } else if (user.e_id === "SOP") {
       let count = await _ExaminerModel.default.countDocuments({
-        e_id: "SOP"
+        e_id: "SOP",
       });
       count++;
 
@@ -105,7 +113,7 @@ class AdminService {
       }
     } else if (user.e_id === "SON") {
       let count = await _ExaminerModel.default.countDocuments({
-        e_id: "SON"
+        e_id: "SON",
       });
       count++;
 
@@ -118,7 +126,7 @@ class AdminService {
       }
     } else if (user.e_id === "SLM") {
       let count = await _ExaminerModel.default.countDocuments({
-        e_id: "SLM"
+        e_id: "SLM",
       });
       count++;
 
@@ -149,19 +157,19 @@ class AdminService {
   async getExaminersUsingName(name) {
     // index search
     return _ExaminerModel.default.find({
-      name
+      name,
     });
   }
 
   async getExaminersUsingEmail(email) {
     return _ExaminerModel.default.find({
-      email
+      email,
     });
   }
 
   async getExaminersUsingMobile(mobile) {
     return _ExaminerModel.default.find({
-      mobile
+      mobile,
     });
   }
 
@@ -169,17 +177,16 @@ class AdminService {
     return _ExaminerModel.default.find();
   } // Super Admin
 
-
   async addAdmin(user) {
     const email = user.email;
     const user_Exist = await _AdminModel.default.findOne({
-      email
+      email,
     });
 
     if (user_Exist) {
       return {
         status: 400,
-        message: "Admin already exists"
+        message: "Admin already exists",
       };
     }
 
@@ -187,11 +194,11 @@ class AdminService {
       email: user.email,
       password: user.password,
       role: user.role,
-      passwordLength: user.password.length
+      passwordLength: user.password.length,
     });
     return {
       status: 200,
-      message: "Admin added successfully"
+      message: "Admin added successfully",
     };
   }
 
@@ -199,21 +206,24 @@ class AdminService {
     const email = user.email;
     console.log(user);
     const admin = await _AdminModel.default.findOne({
-      email
+      email,
     });
 
     if (!admin) {
       return {
         status: 400,
-        message: "Admin not found"
+        message: "Admin not found",
       };
     }
 
-    const updatedAdmin = await _AdminModel.default.findByIdAndUpdate(admin._id, {
-      password: user.password,
-      passwordLength: user.password.length,
-      role: user.role
-    });
+    const updatedAdmin = await _AdminModel.default.findByIdAndUpdate(
+      admin._id,
+      {
+        password: user.password,
+        passwordLength: user.password.length,
+        role: user.role,
+      }
+    );
     return updatedAdmin;
   }
 
@@ -229,13 +239,13 @@ class AdminService {
 
   async getPassword(email) {
     const admin = await _AdminModel.default.findOne({
-      email
+      email,
     });
 
     if (!admin) {
       return {
         status: 400,
-        message: "Admin not found"
+        message: "Admin not found",
       };
     }
 
@@ -249,7 +259,7 @@ class AdminService {
 
   async addMultipleUsers(users) {
     const response = [];
-    users.forEach(async user => {
+    users.forEach(async (user) => {
       const resposne = await this.addExaminer(user);
       response.push(resposne);
     });
@@ -265,21 +275,23 @@ class AdminService {
   }
 
   async updateUniversity(university) {
-    return _UniversityModel.default.findByIdAndUpdate(university._id, university);
+    return _UniversityModel.default.findByIdAndUpdate(
+      university._id,
+      university
+    );
   }
 
   async getDistance(name) {
     return _UniversityModel.default.findOne({
-      name
+      name,
     });
   }
 
   async getMetaData() {
     return _MetaDeta.default.findOne({
-      unique: "metaData"
+      unique: "metaData",
     });
   }
-
 }
 
 var _default = new AdminService();

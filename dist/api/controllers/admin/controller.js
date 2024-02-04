@@ -1,22 +1,23 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports.default = exports.Controller = void 0;
 
 var _admin = _interopRequireDefault(require("../../services/admin.service"));
 
-var _authentication = _interopRequireDefault(require("../../services/authentication.service"));
+var _authentication = _interopRequireDefault(
+  require("../../services/authentication.service")
+);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 class Controller {
   async signIn(req, res) {
-    const {
-      email,
-      password
-    } = req.body;
+    const { email, password } = req.body;
     const user = await _admin.default.signIn(email, password);
     res.status(200).send(user);
   }
@@ -28,24 +29,25 @@ class Controller {
   }
 
   async deleteExaminer(req, res) {
-    const id = await _admin.default.deleteExaminer(req.body.id);
-    await _admin.default.updateMetaData();
-    res.status(200).send(id);
+    try {
+      const id = await _admin.default.deleteExaminer(req.body.id);
+      await _admin.default.updateMetaData();
+      res.status(200).send(id);
+    } catch (err) {
+      console.log(err);
+      res.status(400).send(err);
+    }
   }
 
   async getExaminers(req, res) {
-    const {
-      limit
-    } = req.query;
+    const { limit } = req.query;
     if (!limit) limit = 10;
     const users = await _admin.default.getExaminers(limit);
     res.status(200).send(users);
   }
 
   async getExaminersUsingId(req, res) {
-    const {
-      id
-    } = req.params;
+    const { id } = req.params;
     const user = await _admin.default.getExaminersUsingId(id);
     res.status(200).send(user);
   }
@@ -88,17 +90,13 @@ class Controller {
   }
 
   async getPassword(req, res) {
-    const {
-      email
-    } = req.body;
+    const { email } = req.body;
     const password = await _admin.default.getPassword(email);
     res.status(200).send(password);
   }
 
   async verifyToken(req, res) {
-    const {
-      token
-    } = req.body;
+    const { token } = req.body;
     const decoded = await _authentication.default.verifyToken(token);
 
     if (decoded) {
@@ -117,7 +115,6 @@ class Controller {
   //   const university = await AdminService.getUniversity(name);
   //   res.status(200).send(university);
   // }
-
 
   async addUniversity(req, res) {
     const university = await _admin.default.addUniversity(req.body);
@@ -138,7 +135,6 @@ class Controller {
     const metaData = await _admin.default.getMetaData();
     res.status(200).send(metaData);
   }
-
 }
 
 exports.Controller = Controller;
