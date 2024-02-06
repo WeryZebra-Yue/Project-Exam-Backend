@@ -21,4 +21,6 @@ export default express
   .post("/updateUniversity", controller.updateUniversity)
   .get("/getMetaData", controller.getMetaData)
   .post("/assign", controller.assign)
-  .get("/assignments", controller.getAssignments);
+  .get("/assignments", controller.getAssignments)
+  .post("/updateAssignment", controller.updateAssignment)
+  .post("/deleteAssignment", controller.deleteAssignment);

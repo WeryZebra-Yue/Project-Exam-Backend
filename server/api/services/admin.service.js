@@ -236,6 +236,12 @@ class AdminService {
   async getAssignments() {
     return Assignment.find();
   }
+  async updateAssignment(data) {
+    return Assignment.findByIdAndUpdate(data.id, data);
+  }
+  async deleteAssignment(id) {
+    return Assignment.findByIdAndDelete(id);
+  }
 }
 
 export default new AdminService();

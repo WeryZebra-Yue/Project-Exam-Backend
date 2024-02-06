@@ -110,5 +110,15 @@ export class Controller {
     const result = await AdminService.getAssignments();
     res.status(200).send(result);
   }
+  async updateAssignment(req, res) {
+    const body = req.body;
+    const result = await AdminService.updateAssignment(body);
+    res.status(200).send(result);
+  }
+  async deleteAssignment(req, res) {
+    const body = req.body.id;
+    const result = await AdminService.deleteAssignment(body);
+    res.status(200).send(result);
+  }
 }
 export default new Controller();

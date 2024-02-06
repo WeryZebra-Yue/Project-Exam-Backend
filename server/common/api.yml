@@ -291,6 +291,50 @@ paths:
           description: Return the user data
         404:
           description: User not found / Unauthorized
+  /admin/deleteAssignment:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
+  /admin/updateAssignment:
+    post:
+      tags:
+        - User
+      summary: Get user data
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              e_id:
+                type: string
+              formDetails:
+                type: object
+              travelDetails:
+                type: object
+              payDetails:
+                type: object
+              createdAt:
+                type: string
+      responses:
+        200:
+          description: Return the user data
+        404:
+          description: User not found / Unauthorized
   /spec:
     get:
       tags:
